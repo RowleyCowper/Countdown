@@ -4,7 +4,7 @@ import os
 import subprocess
 
 def clear_screen():
-    os.system('clear')
+    os.system('cls' if os.name == 'nt' else 'clear')  # will adapt depending on windows or mac system
 
 def print_progress_bar(percentage, bar_length=50):
     progress = int(bar_length * percentage)
@@ -14,7 +14,7 @@ def print_progress_bar(percentage, bar_length=50):
 
 def post_notification(title, message):
     script = f'display notification "{message}" with title "{title}"'
-    subprocess.run(["osascript", "-e", script])
+    if os.name == 'posix': subprocess.run(["osascript", "-e", script])
 
 def bring_terminal_to_front():
     script = """
@@ -22,7 +22,7 @@ def bring_terminal_to_front():
         activate
     end tell
     """
-    subprocess.run(["osascript", "-e", script])
+    if os.name == 'posix': subprocess.run(["osascript", "-e", script])
 
 def countdown_timer(total_seconds):
     start_time = time.time()
