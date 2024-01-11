@@ -67,7 +67,9 @@ def main():
         countdown_timer(total_seconds)
 
         while True:
-            choice = input("Timer done! Choose (R) Restart, (N) New timer, or (q) Quit: ").lower()
+            # Get the current system time
+            current_time = time.localtime()
+            choice = input(f"Timer done! ({time.strftime("%H:%M:%S", current_time)}) Choose (R) Restart, (N) New timer, or (q) Quit: ").lower()
             sys.stdout.write('\033[49m\033[2J\033[H')  # Reset background color and clear screen
             sys.stdout.flush()
             if choice == 'r':
